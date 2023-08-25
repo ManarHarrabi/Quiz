@@ -13,59 +13,56 @@ let availableQuesions = [];
 
 let questions = [
     {
-      question: "What is a synonym for 'noxious'?",
-      choice1: "unhealthy",
-      choice2: "nutritious",
-      choice3: "airy",
-      choice4: "bubbly",
-      answer: 1
+        question: "What is a synonym for 'noxious'?",
+        choice1: "unhealthy",
+        choice2: "nutritious",
+        choice3: "airy",
+        choice4: "bubbly",
+        answer: 1
     },
     {
-      question:
-        "Which one has a different meaning?",
-      choice1: "slim",
-      choice2: "lean",
-      choice3: "tired",
-      choice4: "slender",
-      answer: 3
+        question: "Which one has a different meaning?",
+        choice1: "slim",
+        choice2: "lean",
+        choice3: "tired",
+        choice4: "slender",
+        answer: 3
     },
     {
-      question: "Which of the following is a synonym for “Hilarious”?",
-      choice1: "Boring",
-      choice2: " Grim",
-      choice3: "Serious",
-      choice4: "Amusing",
-      answer: 4
+        question: "Which of the following is a synonym for “Hilarious”?",
+        choice1: "Boring",
+        choice2: "Grim",
+        choice3: "Serious",
+        choice4: "Amusing",
+        answer: 4
     }
-  ];
-  
+];
 
-//CONSTANTS
+// CONSTANTS
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 3;
+const MAX_QUESTIONS = questions.length; // Use the total number of questions
 
 function startGame() {
     questionCounter = 0;
     score = 0;
-    availableQuesions = Array.from(questions);
+    availableQuesions = [...questions]; // Clone the questions array
     getNewQuestion();
     game.classList.remove('hidden');
     loader.classList.add('hidden');
 }
 
 function getNewQuestion() {
-    if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+    if (questionCounter >= MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score);
-        //go to the end page
+        // Go to the end page
         return window.location.assign('file:///C:/Users/root/Desktop/QuizApp/end.html');
     }
+
     questionCounter++;
     progressText.innerText = 'Question ' + questionCounter + '/' + MAX_QUESTIONS;
-    //Update the progress bar
     progressBarFull.style.width = (questionCounter / MAX_QUESTIONS) * 100 + '%';
 
-    const questionIndex = Math.floor(Math.random() * availableQuesions.length);
-    currentQuestion = availableQuesions[questionIndex];
+    currentQuestion = availableQuesions[questionCounter - 1];
     question.innerText = currentQuestion.question;
 
     choices.forEach(function(choice) {
@@ -73,7 +70,6 @@ function getNewQuestion() {
         choice.innerText = currentQuestion['choice' + number];
     });
 
-    availableQuesions.splice(questionIndex, 1);
     acceptingAnswers = true;
 }
 
@@ -104,6 +100,6 @@ choices.forEach(function(choice) {
 function incrementScore(num) {
     score += num;
     scoreText.innerText = score;
-};
+}
 
 startGame();
