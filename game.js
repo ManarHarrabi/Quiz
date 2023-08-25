@@ -40,12 +40,12 @@ let questions = [
 
 // CONSTANTS
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = questions.length; // Use the total number of questions
+const MAX_QUESTIONS = questions.length;
 
 function startGame() {
     questionCounter = 0;
     score = 0;
-    availableQuesions = [...questions]; // Clone the questions array
+    availableQuesions = [...questions];
     getNewQuestion();
     game.classList.remove('hidden');
     loader.classList.add('hidden');
